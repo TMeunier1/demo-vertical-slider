@@ -1,34 +1,47 @@
 var currentSlider = 1;
 var nextSlider = 2;
 var previousSlider = 0;
+var currentPosition = 0;
+var nextPosition = 0;
 
+var sizeOfHeader = $('header').height();
+var sizeOfContainer = $('#mainContainer').height();
+var sizeOfFooter  = $('footer').height();
 
 
 function goDown() {
   if ($("#slider-"+nextSlider).length > 0) {
     currentSlider += 1;
-    $("body,html").animate(
+    nextPosition = currentPosition+sizeOfContainer;
+    $("#sliderContainer").animate(
       {
-        scrollTop: $('#slider-'+currentSlider).offset().top
+        top: -nextPosition
       },
       800
     );
+    currentPosition = nextPosition;
+    previousSlider += 1;
+    nextSlider += 1;
   } else {
     return false
   }
-  previousSlider += 1;
-  nextSlider += 1;
 };
 
 function goUp() {
   if ($("#slider-"+previousSlider).length > 0) {
     currentSlider -= 1;
-    $("body,html").animate(
+    console.log(currentPosition);
+    nextPosition = currentPosition-sizeOfContainer;
+    console.log('next position :'+nextPosition);
+    $("#sliderContainer").animate(
       {
-        scrollTop: $('#slider-'+currentSlider).offset().top
+        top: -nextPosition
       },
       800
     );
+    console.log('current position before :'+currentPosition)
+    currentPosition = nextPosition;
+    console.log('current position after :'+currentPosition)
   } else {
     return false
   }
@@ -52,9 +65,9 @@ $(document).ready(function() {
       goDown();
     break;
 
-    default: return; // exit this handler for other keys
+    default: return;
   }
-e.preventDefault(); // prevent the default action (scroll / move caret)
+e.preventDefault();
 
   })
 });
