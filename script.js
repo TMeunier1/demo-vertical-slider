@@ -30,18 +30,14 @@ function goDown() {
 function goUp() {
   if ($("#slider-"+previousSlider).length > 0) {
     currentSlider -= 1;
-    console.log(currentPosition);
     nextPosition = currentPosition-sizeOfContainer;
-    console.log('next position :'+nextPosition);
     $("#sliderContainer").animate(
       {
         top: -nextPosition
       },
       800
     );
-    console.log('current position before :'+currentPosition)
     currentPosition = nextPosition;
-    console.log('current position after :'+currentPosition)
   } else {
     return false
   }
